@@ -11,7 +11,13 @@ def main():
     print('Tablero inicial:')
     sudoku.imprimir_tablero()
 
-    # Agregar codigo para que se juegue la partida
+    while not sudoku.resuelto():
+        fila = int(input('Ingrese fila: '))
+        columna = int(input('Ingrese columna: '))
+        numero = int(input('Ingrese numero: '))
+        print()
+        sudoku.insertar_numero(fila, columna, numero)
+        sudoku.imprimir_tablero()
 
 if __name__ == '__main__':
     main()

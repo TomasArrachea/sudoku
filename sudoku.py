@@ -26,43 +26,79 @@ class Sudoku:
         return self.cuadrantes[(fila//3)*3 + columna//3]
 
     def insertar_numero(self, fila, columna, numero):
-        pass
+        if self.tablero[fila][columna].esta_ocupada():
+            print('La celda ya esta ocupada')
+
+        elif self.filas[fila].contiene(numero):
+            print('El numero ya esta en la fila')
+
+        elif self.columnas[columna].contiene(numero):
+            print('El numero ya esta en la columna')
+        
+        elif self.get_cuadrante(fila, columna).contiene(numero):
+            print('El numero ya esta en el cuadrante')
+
+        else:
+            self.tablero[fila][columna].insertar(numero)
+            self.filas[fila].insertar(numero)
+            self.columnas[columna].insertar(numero)
+            self.get_cuadrante(fila, columna).insertar(numero)
+            print('Numero insertado')
 
     def resuelto(self):
-        pass
-
+        for fila in self.tablero:
+            for celda in fila:
+                if celda.esta_ocupada() == False:
+                    return False
+        return True
+        
     def imprimir_tablero(self):
-        pass
+        # opcional, con que imprima el tablero con espacios esta bien
+        j = 0
+        print(" ----------------------- ")
+        for fila in self.tablero:
+            i = 0
+            if j == 3 or j == 6:
+                print("|-----------------------|")
+            for celda in fila:
+                if i == 0 or i == 3 or i == 6:
+                    print("| ", end="")
+                print(celda, end=" ")
+                i += 1
+            print("|")        
+            j += 1
+        print(" ----------------------- ")
+
 
 class Celda:
     def __init__(self, numero):
-        pass
+        self.numero = numero
 
     def insertar(self, numero):
-        pass
+        self.numero = numero
 
     def esta_ocupada(self):
-        pass
+        return self.numero != 0
 
     def get_numero(self):
-        pass
+        return self.numero
 
     def __str__(self):
-        pass
+        return str(self.numero)
 
 
 class Conjunto:
     def __init__(self):
-        pass
+        self.numeros = set()
 
     def insertar(self, numero):
-        pass
+        self.numeros.add(numero)
     
     def contiene(self, numero):
-        pass
+        return numero in self.numeros
 
     def __str__(self):
-        pass
+        return str(self.numeros)
 
 
 class Fila(Conjunto):
